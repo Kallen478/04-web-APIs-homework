@@ -1,38 +1,18 @@
-// GIVEN I am taking a code quiz
-// WHEN I click the start button
-// THEN a timer starts and I am presented with a question
-// WHEN I answer a question
-// THEN I am presented with another question
-// WHEN I answer a question incorrectly
-// THEN time is subtracted from the clock
-// WHEN all questions are answered or the timer reaches 0
-// THEN the game is over
-// WHEN the game is over
-// THEN I can save my initials and score
-
+// quiz questions
 var questionList = [
     {
-        "question": "Name the bass player of the Red Hot Chili Peppers:",
-        "a": "Gnat",
-        "b": "Fly",
-        "c": "Bob",
-        "d": "Flea",
-        "correct": "d",
-        "userAnswer": null
-    },
-    {
-        "question": "How many albums did Rage Against the Machine release before breaking up?",
-        "a": "7",
-        "b": "10",
-        "c": "4",
-        "d": "1",
+        "question": "Name the singer of Rage Against the Machine:",
+        "a": "Frank Sinatra",
+        "b": "Flavor Flav",
+        "c": "Zack de la Rocha",
+        "d": "Kurt Cobain",
         "correct": "c",
         "userAnswer": null
     },
     {
         "question": "The title of Pearl Jam's debut album is:",
-        "a": "Vs.",
-        "b": "Core",
+        "a": "Core",
+        "b": "Too Legit to Quit",
         "c": "Dookie",
         "d": "Ten",
         "correct": "d",
@@ -67,6 +47,7 @@ var questionList = [
     }
 ];
 
+// question variables
 var questionTag = document.body.querySelector("#question");
 var answerTagA = document.body.querySelector("#answer-a");
 var answerTagB = document.body.querySelector("#answer-b");
@@ -78,44 +59,65 @@ var buttonB = document.body.querySelector("#button-b");
 var buttonC = document.body.querySelector("#button-c");
 var buttonD = document.body.querySelector("#button-d");
 
-var score = document.body.querySelector("#score");
+var result = document.body.querySelector("#result");
+
+var pointsDisplay = document.querySelector("#points");
+var points = 0;
 
 var questionIndex = 0; // change this index to change questions
 
-function buttonHandler(event){
-        var button = event.target;
-        var userAnswer = button.getAttribute("data-answer");
-        var questionId = parseInt(button.getAttribute("data-question"));
-        console.log(button);
-        console.log(userAnswer);
-        console.log(questionId);
-        questionList[questionId]["userAnswer"] = userAnswer;
+document.getElementById("quiz-questions").style.display = "none";
+document.getElementById("game-over").style.display = "none";
 
-        if(questionList[questionId]["userAnswer"] === questionList[questionId]["correct"]) {
-            score.textContent = "You got it right";
-            setTimeout(function(){
-                questionIndex++;
-                initializeQuestion();
-                score.textContent = "";
-                score++;
-            }, 5000);
-        }
-        else{
-            score.textContent = "You got it wrong";
-            setTimeout(function(){
-                questionIndex++;
-                initializeQuestion();
-                score.textContent = "";
-            }, 5000);
-        }
+// logic for answering quiz questions
+function buttonHandler(event) {
+    var button = event.target;
+    var userAnswer = button.getAttribute("data-answer");
+    var questionId = parseInt(button.getAttribute("data-question"));
+    console.log(button);
+    console.log(userAnswer);
+    console.log(questionId);
+    questionList[questionId]["userAnswer"] = userAnswer;
+
+    if (questionList[questionId]["userAnswer"] === questionList[questionId]["correct"]) {
+        result.textContent = "You got it right. Awesome!";
+        setTimeout(function () {
+            questionIndex++;
+            initializeQuestion();
+            result.textContent = "";
+        }, 3000);
+        points = points + 20;
+        pointsDisplay.textContent = points + "%";
+        scoreDisplay.textContent = points + "%";
+    }
+    else {
+        result.textContent = "You got it wrong. Lame!";
+        subtractTime();
+        setTimeout(function () {
+            questionIndex++;
+            initializeQuestion();
+            result.textContent = "";
+        }, 3000);
+        pointsDisplay.textContent = points + "%";
+        scoreDisplay.textContent = points + "%";
+    }
+    if (questionIndex === questionList.length - 1) {
+        document.getElementById("game-over").style.display = "block";
+        document.getElementById("quiz-questions").style.display = "none";
+        minutesDisplay.textContent = "0";
+        secondsDisplay.textContent = "00";
+        clearInterval(interval);
+    }
 }
 
+// click event listeners for answer choices
 buttonA.addEventListener("click", buttonHandler);
 buttonB.addEventListener("click", buttonHandler);
 buttonC.addEventListener("click", buttonHandler);
 buttonD.addEventListener("click", buttonHandler);
 
-function initializeQuestion(){
+// initializes the questions
+function initializeQuestion() {
     console.log(questionList[questionIndex]);
     var wholeObj = questionList[questionIndex];
     var question = wholeObj.question;
@@ -123,7 +125,7 @@ function initializeQuestion(){
     questionTag.textContent = question;
     questionTag.setAttribute("data-question", questionIndex);
 
-    // hw - how we change the text
+    // how the text gets changed
     answerTagA.textContent = wholeObj.a;
     answerTagB.textContent = wholeObj.b;
     answerTagC.textContent = wholeObj.c;
@@ -134,4 +136,59 @@ function initializeQuestion(){
     buttonD.setAttribute("data-question", questionIndex);
 }
 initializeQuestion();
+
+// timer variables
+var startButton = document.querySelector("#start");
+var minutesDisplay = document.querySelector("#minutes");
+var secondsDisplay = document.querySelector("#seconds");
+var totalSeconds = 0;
+var secondsElapsed = 0;
+var interval;
+
+// function runs once a second
+function runClock() {
+    secondsElapsed++;
+    console.log(secondsElapsed);
+    minutesDisplay.textContent = Math.floor((totalSeconds - secondsElapsed) / 60);
+    secondsDisplay.textContent = (totalSeconds - secondsElapsed) % 60;
+
+    if (secondsElapsed >= totalSeconds) {
+        clearInterval(interval);
+        minutesDisplay.textContent = "0";
+        secondsDisplay.textContent = "00";
+        document.getElementById("game-over").style.display = "block";
+        document.getElementById("quiz-questions").style.display = "none";
+    }
+}
+
+// starts the timer
+function startTimer() {
+    // total minutes to take the quiz
+    var minutes = 3;
+    // set the timeusing totalSeconds
+    totalSeconds = minutes * 60;
+    // initialize seconds on the play button
+    secondsElapsed = 0;
+
+    if (typeof interval !== "undefined") {
+        // if we have an interval we want to clear it
+        clearInterval(interval);
+    }
+    // keep track of interval
+    interval = setInterval(runClock, 1000);
+
+    document.getElementById("instructions").style.display = "none";
+    document.getElementById("quiz-questions").style.display = "block";
+    document.getElementById("game-over").style.display = "none";
+}
+
+startButton.addEventListener("click", startTimer);
+
+// function to subtract time
+function subtractTime() {
+    secondsElapsed = secondsElapsed + 30;
+    minutesDisplay.textContent = Math.floor((totalSeconds - secondsElapsed) / 60);
+    secondsDisplay.textContent = (totalSeconds - secondsElapsed) % 60;
+}
+
 
