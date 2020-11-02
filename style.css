@@ -1,0 +1,41 @@
+body {
+    background-color: bisque;
+}
+
+.jumbotron {
+    background-color: darkolivegreen;
+}
+
+h1 {
+    color: darkolivegreen;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+h2, h4, #points, #minutes, #seconds {
+    color: bisque;
+    font-weight: bold;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+#time {
+    text-align: right;
+}
+
+#instructions, #question, #game-over {
+    text-align: center;
+}
+
+#start, #submit-button {
+    width: 150px;
+    margin-bottom: 50px;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    background-color: darkolivegreen;
+    color: bisque;
+}
