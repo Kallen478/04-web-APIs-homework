@@ -21,10 +21,11 @@
     <!-- time and current score display -->
     <header class="jumbotron jumbotron-fluid">
         <div class=container>
-        <h2>Score: <div id="points">0%</div></h2>
-        <time id="time">
-            <h4>Time Left:<div id="minutes">3</div>minutes
-            <div id="seconds">00</div>seconds</h4>
+            <h2>Score: <div id="points">0%</div>
+            </h2>
+            <time id="time">
+                <h4>Time Left:<div id="minutes">3</div>minutes
+                    <div id="seconds">00</div>seconds</h4>
             </time>
         </div>
     </header>
@@ -60,14 +61,27 @@
             <p id="result"></p>
         </section>
 
-        
+        <!-- game over -->
+        <section id="game-over">
+            <h1>Game Over</h1>
+            <hr>
+            <p>Enter your initials here:</p>
+            <form method="POST">
+                <div class="form-group">
+                    <input type="text" name="initials" id="initials" placeholder="ABC" />
+                </div>
+            </form>
+            <h3>Score: <div id="score"></div>
+            </h3>
+            <div id="val-message"></div>
+            <button id="submit-button" class="btn btn-danger">Submit</button>
+        </section>
     </main>
 
     <!-- footer -->
-  <footer>
-    <p>&copy; 2020 Kyle Style</p>
-  </footer>
-  
+    <footer>
+        <p>&copy; 2020 Kyle Style</p>
+    </footer>
 
 </body>
 
