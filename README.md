@@ -23,4 +23,5 @@ THEN I can save my initials and score
 <img src="homework-4.png" alt="screenshot of web APIs homework">
 
 https://kallen478.github.io/04-web-APIs-homework/
+
 https://github.com/Kallen478/04-web-APIs-homework
