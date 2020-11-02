@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music Quiz</title>
+    <title>90's Music Quiz</title>
     <!-- link and scripts for bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -12,23 +13,53 @@
     <!-- link to css page -->
     <link rel="stylesheet" href="style.css">
     <!-- script for linking javascript page -->
-    <script type="text/javascript" src="script.js" defer></script>
+    <script src="script.js" defer></script>
 
 </head>
-<body>
-    <h1 id="question" data-question=""></h1>
-    <ul>
-        <li><button id="button-a" data-answer="a">A: </button>
-            <span id="answer-a"></span></li>
-        <li><button id="button-b" data-answer="b">B: </button>
-            <span id="answer-b"></span></li>
-        <li><button id="button-c" data-answer="c">C: </button>
-            <span id="answer-c"></span></li>
-        <li><button id="button-d" data-answer="d">D: </button>
-            <span id="answer-d"></span></li>
-    </ul>
 
-    <p id="score"></p>
+<body>
     
+
+    <main class="container-fluid">
+        <!-- instructions -->
+        <section id="instructions">
+            <img src="Nirvana.jpg" class="img-fluid mx-auto d-block" style="width:50%" alt="picture of Nirvava">
+            <h1>90's Music Quiz</h1>
+            <hr>
+            <p>Test your knowledge of the alternative/grunge era. You will have 3 minutes to complete the quiz, and
+                every wrong answer will result in additional time coming off the clock. Are you ready to rock? </p>
+            <button type="button" id="start" class="btn btn-danger">Start</button>
+        </section>
+
+        <!-- quiz questions -->
+        <section id="quiz-questions">
+            <h1 id="question" data-question=""></h1>
+            <ul>
+                <li>
+                    <button id="button-a" data-answer="a" class="btn btn-danger">A: </button>
+                    <span id="answer-a"></span></li>
+                <li>
+                    <button id="button-b" data-answer="b" class="btn btn-danger">B: </button>
+                    <span id="answer-b"></span></li>
+                <li>
+                    <button id="button-c" data-answer="c" class="btn btn-danger">C: </button>
+                    <span id="answer-c"></span></li>
+                <li>
+                    <button id="button-d" data-answer="d" class="btn btn-danger">D: </button>
+                    <span id="answer-d"></span></li>
+            </ul>
+            <p id="result"></p>
+        </section>
+
+        
+    </main>
+
+    <!-- footer -->
+  <footer>
+    <p>&copy; 2020 Kyle Style</p>
+  </footer>
+  
+
 </body>
+
 </html>
