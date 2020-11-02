@@ -191,4 +191,29 @@ function subtractTime() {
     secondsDisplay.textContent = (totalSeconds - secondsElapsed) % 60;
 }
 
+// game over variables
+var submitButton = document.querySelector("#submit-button");
+var valMessage = document.querySelector("#val-message");
+var scoreDisplay = document.querySelector("#score");
+
+// validation for entering initials
+function displayMessage(type, message) {
+    valMessage.textContent = message;
+    valMessage.setAttribute("class", type);
+}
+
+submitButton.addEventListener("click", function (event) {
+    event.preventDefault();
+
+    var initials = document.querySelector("#initials").value;
+
+    if (initials === "") {
+        displayMessage("error", "You'd be a lot cooler if you entered your initials.");
+    }
+    else {
+        displayMessage("success", "Game info saved.");
+    }
+});
+
+
 
